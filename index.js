@@ -12,12 +12,11 @@ client.on(Events.ClientReady, async () => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-    if(message.content === 'hola' || message.content === 'Hola' &&  message.author.bot) {
+    if((message.content === 'hola' || message.content === 'Hola') &&  message.author.bot) {
         message.reply("hola, eres un bot")
     } else if (message.content === 'hola' || message.content === 'Hola') {
         message.reply("hola bro")
     }
-
 });
 
 client.login(config.BOT_TOKEN);
