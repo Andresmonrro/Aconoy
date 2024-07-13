@@ -13,12 +13,13 @@ client.on(Events.ClientReady, async () => {
 });
 
 client.on(Events.MessageCreate, async (message) => {
-  const embed = {
-    color: 0x0099ff,
-	  title: 'matenmeeee',
-    description: `${message}`
-  }
-  if  (message.startThread) {
+
+  if  (message.content === 'aconoy' || message.content == 'Aconoy') { 
+    const embed = {
+      color: 0x0099ff,
+      title: 'te quiero bro',
+      description: `att: ${message} :)`
+    }
     message.reply({ embeds: [embed]});
   }
 });
