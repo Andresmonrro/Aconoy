@@ -33,6 +33,12 @@ client.on(Events.MessageCreate, async (message) => {
   }
 });
 
+client.on(Events.MessageCreate, async (message) => {
+	if  (message.content === 'webi wabo' || message.content == 'Webi wabo') { 
+	  message.reply('https://static.wikia.nocookie.net/mamarre-estudios-espanol/images/6/66/Webi_Wabo.jpeg/revision/latest?cb=20200928223732&path-prefix=es');
+	}
+  });
+
 //definicion de comandos 
 
 const foldersPath = path.join(__dirname, 'commands');
