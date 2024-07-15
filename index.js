@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const path = require('node:path');
 const { log } = require("console");
+const { channel, title } = require("process");
 
 
 
@@ -13,7 +14,7 @@ const rest = new REST().setToken(config.BOT_TOKEN)
 const client = new Client( { intents: 53608447, } );
 const prefix = '¿¿'
 const svStatusChannelId = '1262490995761610852'
-const svStatus = false
+var svStatus = false
 //
 //ready confirmacion
 client.on(Events.ClientReady, async () => {
@@ -57,22 +58,31 @@ client.on(Events.MessageCreate, async (message) => {
 }})
 
 client.on(Events.MessageCreate, async (message) => {
-	if (message.author.username === 'minecraft [Untitled]') {
+	if ((message.author.username === 'minecraft [Untitled]') || (message.content === 'ccpr')) {
+		let embed = (svStatus) => {return {
+			title: 'estado del servidor',
+			color: 0x0099ff,
+			description: svStatus ? ':white_check_mark: **servidor prendido**' : ':octagonal_sign: **servidor apagado**'
+		}}
+	    const channel = client.channels.cache.get(svStatusChannelId)
 		log('si es')
-		log(message.content)
-		if (message.embeds) {
-			log(message.embeds[0])
-		}
+		//await channel.send('sss')
+/* 		if (message.embeds) {
+			log('embed', message.embeds[0])
+		} */
 		if (message.content === ':octagonal_sign: **Server has stopped**') {
-			let channel = await client.channels.fetch(svStatusChannelId);
-			channel.name = 'sv-status-off'
 			svStatus = false
 			log('server off')
-		} else if (message.content === ':white_check_mark: Server has started') {
-			let channel = await client.channels.fetch(svStatusChannelId);
-			channel.name = 'sv-status-on'
+			log(message.content)
+			await channel.setName('sv-status-off');
+			await channel.send({embed: [embed(svStatus)]})
+		} 
+		if (message.content === ':white_check_mark: **Server has started**') {
 			svStatus = true
 			log('server on')
+			log(message.content)
+		    await channel.setName('server-status-on');
+			await channel.send({embed: [embed(svStatus)]})
 		}
 	}
 })
