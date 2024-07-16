@@ -75,14 +75,14 @@ client.on(Events.MessageCreate, async (message) => {
 			log('server off')
 			log(message.content)
 			await channel.setName('sv-status-off');
-			await channel.send({embed: [embed(svStatus)]})
+			await channel.send({embeds: [embed(svStatus)]})
 		} 
 		if (message.content === ':white_check_mark: **Server has started**') {
 			svStatus = true
 			log('server on')
 			log(message.content)
 		    await channel.setName('server-status-on');
-			await channel.send({embed: [embed(svStatus)]})
+			await channel.send({embeds: [embed(svStatus)]})
 		}
 	}
 })
