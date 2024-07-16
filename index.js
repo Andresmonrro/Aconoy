@@ -4,8 +4,6 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const path = require('node:path');
 const { log } = require("console");
-const { channel, title } = require("process");
-
 
 
 //id del canal de pruebas (por si acaso)
@@ -15,6 +13,8 @@ const client = new Client( { intents: 53608447, } );
 const prefix = '¿¿'
 const svStatusChannelId = '1262490995761610852'
 var svStatus = false
+const tMsj = 'ccpr'
+
 //
 //ready confirmacion
 client.on(Events.ClientReady, async () => {
@@ -58,14 +58,14 @@ client.on(Events.MessageCreate, async (message) => {
 }})
 
 client.on(Events.MessageCreate, async (message) => {
-	if ((message.author.username === 'minecraft [Untitled]') || (message.content === 'ccpr')) {
-		let embed = (svStatus) => {return {
+	if ((message.author.username === 'minecraft [Untitled]') || (message.content === tMsj)) {
+		const embed = (svStatus) => {return {
 			title: 'estado del servidor',
-			color: 0x0099ff,
+			color: svStatus ? 0x0099ff : 0xff0000,
 			description: svStatus ? ':white_check_mark: **servidor prendido**' : ':octagonal_sign: **servidor apagado**'
 		}}
-	    const channel = client.channels.cache.get(svStatusChannelId)
-		log('si es')
+	   
+		log('v')
 		//await channel.send('sss')
 /* 		if (message.embeds) {
 			log('embed', message.embeds[0])
@@ -74,17 +74,38 @@ client.on(Events.MessageCreate, async (message) => {
 			svStatus = false
 			log('server off')
 			log(message.content)
-			await channel.setName('sv-status-off');
-			await channel.send({embeds: [embed(svStatus)]})
-		} 
-		if (message.content === ':white_check_mark: **Server has started**') {
+			try {
+				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
+				await channelLogsv.setName('sv-status-off');
+			    await channelLogsv.send({embeds: [embed(svStatus)]})
+			} catch (error) {
+				log('noooo')
+			}
+			log('prrrrr')
+		} else if (message.content === ':white_check_mark: **Server has started**') {
 			svStatus = true
 			log('server on')
 			log(message.content)
-		    await channel.setName('server-status-on');
-			await channel.send({embeds: [embed(svStatus)]})
-		}
-	}
+		     try {
+				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
+				await channelLogsv.setName('sv-status-on');
+			    await channelLogsv.send({embeds: [embed(svStatus)]})
+			 } catch (error) {
+				log('nnoooo')
+			 }
+			log('prrrrr')
+		} else if (message.content === tMsj) {
+			log(tMsj)
+			try {
+				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
+				await channelLogsv.setName(tMsj);
+			    await channelLogsv.send({embeds: [embed(svStatus)]})
+			} catch (error) {
+				log('nnoooo')
+			}
+			log(tMsj)
+		} 
+	} 
 })
 
 //login
