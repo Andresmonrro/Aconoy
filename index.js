@@ -75,9 +75,10 @@ client.on(Events.MessageCreate, async (message) => {
 			log('server off')
 			log(message.content)
 			try {
-				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
+				let channelLogsv =  client.channels.cache.get(svStatusChannelId)
 				await channelLogsv.setName('sv-status-off');
 			    await channelLogsv.send({embeds: [embed(svStatus)]})
+
 			} catch (error) {
 				log('noooo')
 			}
@@ -87,7 +88,7 @@ client.on(Events.MessageCreate, async (message) => {
 			log('server on')
 			log(message.content)
 		     try {
-				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
+				let channelLogsv =  client.channels.cache.get(svStatusChannelId)
 				await channelLogsv.setName('sv-status-on');
 			    await channelLogsv.send({embeds: [embed(svStatus)]})
 			 } catch (error) {
@@ -97,8 +98,8 @@ client.on(Events.MessageCreate, async (message) => {
 		} else if (message.content === tMsj) {
 			log(tMsj)
 			try {
-				const channelLogsv = await client.channels.cache.get(svStatusChannelId)
-				await channelLogsv.setName(tMsj);
+				let channelLogsv =  client.channels.cache.get(svStatusChannelId)
+				await channelLogsv.setName('prueba(ignora)')
 			    await channelLogsv.send({embeds: [embed(svStatus)]})
 			} catch (error) {
 				log('nnoooo')
