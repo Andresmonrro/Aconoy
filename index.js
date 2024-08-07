@@ -45,7 +45,8 @@ client.on(Events.MessageCreate, async (message) => {
 	let embed = {
 	    color: 0x0099ff,
         title: 'acerca de los usos del bot ',
-        description: `**respuestas divertidas**: 
+        description: `
+		**respuestas divertidas**: 
 		-webi wabo
 		-aconoy
 		
@@ -59,7 +60,7 @@ client.on(Events.MessageCreate, async (message) => {
 
 client.on(Events.MessageCreate, async (message) => {
 	if ((message.author.username === 'minecraft [Untitled]') || (message.content === tMsj)) {
-		const embed = (svStatus) => {return {
+		let embed = (svStatus) => {return {
 			title: 'estado del servidor',
 			color: svStatus ? 0x0099ff : 0xff0000,
 			description: svStatus ? ':white_check_mark: **servidor prendido**' : ':octagonal_sign: **servidor apagado**'
@@ -99,7 +100,7 @@ client.on(Events.MessageCreate, async (message) => {
 			log(tMsj)
 			try {
 				let channelLogsv =  client.channels.cache.get(svStatusChannelId)
-				await channelLogsv.setName('prueba(ignora)')
+				await channelLogsv.setName('404')
 			    await channelLogsv.send({embeds: [embed(svStatus)]})
 			} catch (error) {
 				log('nnoooo')
@@ -108,6 +109,11 @@ client.on(Events.MessageCreate, async (message) => {
 		} 
 	} 
 })
+try {
+log(client.emojis.cache.toJSON())
 
+} catch (error) {
+	log('ñao')
+}
 //login
 client.login(config.BOT_TOKEN);
